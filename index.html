@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陈梦翔 - 个人简历</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        /* 基础样式设置 */
+        @font-face {
+            font-family: '思源CN';
+            src: local('Source Han Sans CN'), local('Noto Sans SC');
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: '思源CN', 'Source Han Sans CN', 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .resume-container {
+            background: white;
+            padding: 40px;
+            position: relative;
+        }
+        
+        /* 头部样式 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            align-items: center; /* 确保照片和文字垂直居中 */
+        }
+        
+        .name-title {
+            flex: 1;
+        }
+        
+        .name {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2c3e50;
+            letter-spacing: 1px;
+        }
+        
+        .title {
+            font-size: 20px;
+            color: #3498db;
+            margin-bottom: 12px;
+        }
+        
+        .contact-info {
+            margin-top: 5px;
+        }
+        
+        .contact-info p {
+            margin: 4px 0;
+            font-size: 15px;
+        }
+        
+        .contact-line {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 5px;
+        }
+        
+        .photo-container {
+            width: 110px;
+            height: 150px;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f9f9f9;
+            overflow: hidden;
+        }
+        
+        .photo-container img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        /* 模块通用样式 */
+        .section {
+            margin-bottom: 22px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #3498db;
+            color: #2c3e50;
+        }
+        
+        .item {
+            margin-bottom: 18px;
+        }
+        
+        .item-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 17px;
+            color: #2980b9;
+        }
+        
+        .sub-item {
+            margin-left: 20px;
+            margin-bottom: 8px;
+        }
+        
+        /* 列表样式 */
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 12px;
+        }
+        
+        li {
+            margin-bottom: 7px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        /* 分页控制 */
+        .page {
+            page-break-after: always;
+            padding: 25px 0;
+        }
+        
+        .page:last-child {
+            page-break-after: auto;
+        }
+        
+        /* 按钮样式 */
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        /* 打印优化 */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .resume-container {
+                padding: 0;
+            }
+            
+            .controls {
+                display: none;
+            }
+        }
+        
+        /* 页脚声明 */
+        .footer-note {
+            text-align: center;
+            font-size: 12px;
+            color: #95a5a6;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        /* 项目经历特殊样式 */
+        .project-item {
+            margin-bottom: 22px;
+            padding-bottom: 15px;
+        }
+        
+        .project-item:last-child {
+            border-bottom: none;
+        }
+        
+        .project-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+        }
+        
+        .project-name {
+            font-size: 17px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .project-date {
+            font-size: 15px;
+            color: #7f8c8d;
+        }
+        
+        .project-result {
+            margin-top: 10px;
+            padding: 5px 0;
+            font-weight: bold;
+            color: #2980b9;
+        }
+        
+        /* 实习经历样式 */
+        .experience-item {
+            margin-bottom: 22px;
+        }
+        
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .experience-title {
+            font-size: 17px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .experience-company {
+            font-size: 15px;
+            color: #3498db;
+        }
+        
+        .experience-period {
+            font-size: 14px;
+            color: #7f8c8d;
+            font-weight: bold;
+        }
+        
+        /* 荣誉部分 */
+        .honors-list li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button class="btn" id="downloadPdf">下载PDF简历</button>
+    </div>
+    
+    <div class="resume-container" id="resume">
+        <!-- 第1页 -->
+        <div class="page">
+            <div class="header">
+                <div class="name-title">
+                    <div class="name">陈梦翔</div>
+                    <div class="title">应届本科毕业生</div>
+                    <div class="contact-info">
+                        <div class="contact-line">
+                            <span>联系电话：15147643914</span>
+                            <span>联系邮箱：15147643914@163.com</span>
+                        </div>
+                        <p>毕业院校：山东农业大学 | 道路桥梁与渡河工程</p>
+                    </div>
+                </div>
+                <div class="photo-container">
+                    <img src="id_photo.jpg" alt="个人证件照">
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">个人优势</div>
+                <ol>
+                    <li>
+                        <strong>团队管理</strong>：擅长基于规范制度进行有效管理；任职班长期间管理34人班级体，处理班级日常事务；具有良好的组织能力，及问题发现与解决能力；
+                    </li>
+                    <li>
+                        <strong>跨部门沟通与资源协调</strong>：擅长调动各方资源达成目标；学生会任职期间，协调各方资源确保学院各项活动、事务等顺利展开，并定期向学院书记汇报工作；
+                    </li>
+                    <li>
+                        <strong>策划与统筹</strong>：擅长以数据驱动目标，全面统筹策划活动；确保活动高效、高质量落地；
+                    </li>
+                    <li>
+                        <strong>数据分析与项目管理</strong>：擅长运用Excel进行经营数据分析；通过制作项目进度表对项目进行全面管理，并把控项目质量、成本等；
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">在校荣誉</div>
+                <ol class="honors-list">
+                    <li>凭借优秀的综合能力，3次获得院级奖学金；</li>
+                    <li>作为创新创业委员，连续两年参与"山东省互联网+大学生创新创业大赛"，累计申报项目4项，其中1项获得创业委员会肯定，入围校级评选；</li>
+                    <li>在社会实践中，主创的调查报告《聚焦脱贫攻坚，消除绝对贫困》被评为"校级优秀调查报告"；</li>
+                    <li>任职班长期间，主导班委团队完成多项班级评优工作，并带领班级获得"优秀班集体"等多项集体荣誉；</li>
+                    <li>任职心理委员期间，带领团队策划心理情景剧《》，荣获三等奖；</li>
+                    <li>军训期间，担任80+人新兵连负责人，因在团队管理等方面表现突出，被大学生军训团委评为"优秀标兵"</li>
+                </ol>
+                
+                <div style="margin-top: 20px;">
+                    <div class="section-title" style="border-bottom: none; margin-bottom: 10px;">在校任职情况</div>
+                    <p style="font-size: 15px; padding: 8px; background: #f8f9fa; border-radius: 4px;">
+                        学院大学生自律委员会干事；创新创业委员；班长；心理委员；田径队队员；
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 第2页 - 项目经历 -->
+        <div class="page">
+            <div class="section">
+                <div class="section-title">项目经历</div>
+                
+                <div class="project-item">
+                    <div class="project-title">
+                        <div class="project-name">80m预应力钢筋混凝土连续梁桥设计</div>
+                        <div class="project-date">2025年</div>
+                    </div>
+                    <ol>
+                        <li>运用Midas Civil构建桥梁三维模型，划分64个梁单元；并依据规范计算结构冲击系数，配置预应力钢束；</li>
+                        <li>进行PSC设计验算，验证结构安全性</li>
+                    </ol>
+                    <div class="project-result">
+                        <strong>项目成果：</strong>独立完成设计《计算书》与《项目计划书》编制；独立绘制7套符合规范的专业施工图纸；
+                    </div>
+                </div>
+                
+                <div class="project-item">
+                    <div class="project-title">
+                        <div class="project-name">发起"拳击训练靶"创新创业项目</div>
+                        <div class="project-date">2024年</div>
+                    </div>
+                    <ol>
+                        <li>基于市场调研及用户需求调查等，撰写《项目计划书》；</li>
+                        <li>从项目启动，到项目申报完成，全面负责材料准备、小组成员工作分配等全链路工作；</li>
+                    </ol>
+                    <div class="project-result">
+                        <strong>项目成果：</strong>项目获得"互联网+大学生创新创业大赛"创新创业委员会肯定，成功入围校级评选；
+                    </div>
+                </div>
+                
+                <div class="project-item">
+                    <div class="project-title">
+                        <div class="project-name">全面负责"率土之滨星"游戏推广</div>
+                        <div class="project-date">23年12月-24年3月</div>
+                    </div>
+                    <ol>
+                        <li>基于引流目标，并结合历史文化等要素，策划系列视频类推广内容；</li>
+                        <li>独立完成视频脚本及视频剪辑工作；</li>
+                        <li>运营游戏抖音账号，完成日常发布、评论区互动引流等，并基于内容数据随时调整内容创作方向；</li>
+                    </ol>
+                    <div class="project-result">
+                        <strong>项目成果：</strong>独立完成30+推广视频制作；单条最高播放量1万+；
+                    </div>
+                </div>
+                
+                <div class="project-item">
+                    <div class="project-title">
+                        <div class="project-name">策划并统筹泰安地区台球精英交流赛活动</div>
+                        <div class="project-date">2023年</div>
+                    </div>
+                    <ol>
+                        <li>基于扩大台球厅知名度的需求，发起台球精英交流赛活动；</li>
+                        <li>独立完成赛事流程与规则制定，并制作活动推广宣传物料，包括但不限于海报、奖杯、证书等；</li>
+                        <li>协调场地，沟通参赛选手，确保活动顺利进行；</li>
+                    </ol>
+                    <div class="project-result">
+                        <strong>活动成果：</strong>成功吸引到200+人参与赛事；台球厅知名度显著提升；
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 第3页 - 实习经历和专业技能 -->
+        <div class="page">
+            <div class="section">
+                <div class="section-title">实习经历</div>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">店长助理</div>
+                            <div class="experience-company">泰安市福自来超市分店</div>
+                        </div>
+                        <div class="experience-period">25年2月 - 7月</div>
+                    </div>
+                    <ol>
+                        <li>协助店长完成新店开业筹备工作；包括但不限于商品陈列规划、商品保质期监控体系建设等；</li>
+                        <li>统计经营流水，协助店长完成经营分析；</li>
+                        <li>通过观察用户购买习惯等，优化商品品类，建议店长引入蓝带精酿新酒水品类后，酒类销量显著增长；</li>
+                    </ol>
+                </div>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">工程项目管理助理</div>
+                            <div class="experience-company">山东陆通建设工程有限公司</div>
+                        </div>
+                        <div class="experience-period">2025.01 - 02</div>
+                    </div>
+                    <ol>
+                        <li>协助施工员进行现场巡查；</li>
+                        <li>识读建筑施工图、结构施工图；</li>
+                        <li>参与测量放线、标高复核等技术工作；</li>
+                        <li>应用Excel绘制项目进度横道图；</li>
+                    </ol>
+                </div>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">俱乐部运营助理</div>
+                            <div class="experience-company">泰安市星悦台球棋牌俱乐部</div>
+                        </div>
+                        <div class="experience-period">2023.12 - 2024.07</div>
+                    </div>
+                    <ol>
+                        <li>协助俱乐部运营经理，完成俱乐部日常事务管理；包括但不限于员工排班、工资核算等；</li>
+                        <li>运营俱乐部5个社群（累计2000+人），策划并执行俱乐部小型赛事，通过奖励机制等维持社群活跃度；</li>
+                        <li>与供应商保持良好合作关系，负责日常订货，确保俱乐部内商品供应；</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">专业技能</div>
+                <ol>
+                    <li>精通Midas Civil、AutoCAD等工程类建模、设计、图纸绘制软件；</li>
+                    <li>精通工程测量与勘察、桥梁结构设计；熟知施工技术规范，可独立完成工程项目管理与跟踪；</li>
+                    <li>熟练掌握剪映视频剪辑软件及WPS Office等办公软件；</li>
+                    <li>擅长使用DeepSeek等AI工具，联合Office套件高效完成文档、数据处理工作；</li>
+                </ol>
+            </div>
+            
+            <div class="footer-note">
+                本网站仅适用于求职展示，不收集任何用户信息。
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('downloadPdf').addEventListener('click', function() {
+            const element = document.getElementById('resume');
+            const options = {
+                margin: 10,
+                filename: '陈梦翔_个人简历.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2,
+                    useCORS: true,
+                    logging: false
+                },
+                jsPDF: { 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'portrait' 
+                }
+            };
+            
+            // 使用html2pdf库生成PDF
+            html2pdf().set(options).from(element).save();
+        });
+    </script>
+</body>
+</html>
